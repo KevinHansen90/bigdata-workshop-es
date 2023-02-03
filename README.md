@@ -1,65 +1,12 @@
-# Workshop de Big Data con Apache Spark [🇪🇸]
-Material del Workshop de Big Data
+# Seminario - Trabajo Kevin Hansen
+  
+Este repositorio es un fork obtenido desde el repositorio de [Mutt](https://github.com/MuttData/bigdata-workshop-es). Toda la instalación y funcionamiento del ambiente pueden encontrarse en su [README.md](https://github.com/MuttData/bigdata-workshop-es/blob/master/README.md).
+  
+Se han realizado modificaciones/agregados en los siguientes archivos:
+- [docker-compose.yml](https://github.com/KevinHansen90/bigdata-workshop-es/blob/master/docker-compose.yml): se modifica la capacidad de los workers
+- [init.sql](https://github.com/KevinHansen90/bigdata-workshop-es/blob/master/postgres/scripts/init.sql): se crean las tablas que se van a poblar
+- [twitter-sentiment.ipynb](https://github.com/KevinHansen90/bigdata-workshop-es/blob/master/jupyter/notebook/twitter-sentiment.ipynb): archivo principal
 
-## Contenidos
-* [Levantar el ambiente](#levantar-ambiente)
-* [Introducción a Scala](scala/README.md)
-* [Batch Processing (Scala)](README-batch.md)
-* [Structured Streaming Processing (Scala)](README-streaming.md)
-* [Machine Learning (Scala)](README-ml.md)
-* [Jupyter Notebook (Python / pySpark)](README-pyspark.md)
-* [Lista de Jupyter Notebook](jupyter/notebook/README.md)
+Este trabajo consiste en la creación de un pipeline para la clasificación de tweets según su polaridad (negativa o positiva). El mismo, se desgloza y explica en el notebook de [twitter-sentiment.ipynb](https://github.com/KevinHansen90/bigdata-workshop-es/blob/master/jupyter/notebook/twitter-sentiment.ipynb).
 
-## Infrastructura
-
-El workshop simula una instalación de producción utilizando container de Docker.
-[docker-compose.yml](docker-compose.yml) contiene las definiciones y configuraciones para esos servicios y sus respectivas UIs:
-
-* Apache Spark: [Spark Master UI](http://localhost:8080) | [Job Progress](http://localhost:4040)
-* Apache Kafka:
-* Postgres:
-* [Superset](http://superset.incubator.apache.org): [Nuestro Dashboard](http://localhost:8088/)
-
-Los puertos de acceso a cada servicio quedaron los defaults. Ej: **spark master:7077**, **postgres: 5432**
-
-## Levantar ambiente
-
-Instalar el ambiente [siguiendo las instrucciones acá](INSTALL.md).
-
-Correr el script que levanta el ambiente `Usage: control-env.sh (start|stop|cleanup)`:
-
-```bash
-./control-env.sh start
-
-**IMPORTANTE** el script `control-env.sh cleanup` borra cualquier dato que haya sido procesado anteriormente.
-
-
-# Access Spark-Master and run spark-shell
-docker exec -it master bash
-root@588acf96a879:/app# spark-shell
-```
-Probar:
-
-```scala
-val file = sc.textFile("/dataset/yahoo-symbols-201709.csv")
-file.count
-file.take(10).foreach(println)
-```
-
-Acceder al [Spark Master: http://localhost:8080](http://localhost:8080) y [SPARK-UI: http://localhost:4040](http://localhost:4040).
-
-### Troubleshooting
-
-Si los jobs mueren (`KILLED`) y no se completan puede ser debido a la memória disponible para Docker, **aumente la memoria > 8Gb** al proceso de Docker:
-
-![](./images/docker-advanced-config.jpg)
-
-# Siga leyendo
-* [Introducción a Scala](scala/README.md)
-* [Jupyter Notebook (Python / pySpark)](README-pyspark.md)
-
-## Sobre
-Gustavo Arjones &copy; 2017-2020
-[arjon.es](https://arjon.es) | [LinkedIn](http://linkedin.com/in/arjones/) | [Twitter](https://twitter.com/arjones)
-
-Mutt Data &copy; 2021-
+Los datos utilizados se encuentran dentro de [/dataset/tweets](https://github.com/KevinHansen90/bigdata-workshop-es/tree/master/dataset/tweets) y se obtuvieron de [Sentiment140](http://help.sentiment140.com/for-students).
